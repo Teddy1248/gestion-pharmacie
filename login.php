@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 require_once 'Configuration/database.php';
 
@@ -11,12 +11,12 @@ $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email'] ?? '');
-    $password = trim($_POST['password'] ?? '');
+    $password = $_POST['password'] ?? '';
 
-    if (empty($email) || empty($password)) {
+    if ($email === '' || $password === '') {
         $message = "Tous les champs sont obligatoires.";
     } else {
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt = $pdo->prepare("SELECT id, email, password FROM users WHERE email = ?");
         $stmt->execute([$email]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -24,40 +24,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             session_regenerate_id(true);
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_email'] = $user['email'];
-
             header('Location: dashboard.php');
             exit();
-        } else {
-            $message = "Email ou mot de passe incorrect.";
         }
+
+        $message = "Email ou mot de passe incorrect.";
     }
 }
 
 include 'Includes/header.php';
 ?>
 
+<span class="eyebrow">Espace sécurisé</span>
 <h1>Connexion</h1>
+<p class="page-intro">Connectez-vous pour accéder aux produits, clients, stocks et ventes.</p>
 
 <?php if (isset($_SESSION['message'])): ?>
     <p class="success"><?= htmlspecialchars($_SESSION['message']) ?></p>
     <?php unset($_SESSION['message']); ?>
 <?php endif; ?>
 
-<?php if (!empty($message)): ?>
+<?php if ($message !== ''): ?>
     <p class="error"><?= htmlspecialchars($message) ?></p>
 <?php endif; ?>
 
 <form method="POST" action="login.php">
-    <label for="email">Email :</label>
-    <input type="email" id="email" name="email" required>
+    <label for="email">Adresse email</label>
+    <input type="email" id="email" name="email" autocomplete="email" placeholder="vous@exemple.fr" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>" required>
 
-    <label for="password">Mot de passe :</label>
-    <input type="password" id="password" name="password" required>
+    <label for="password">Mot de passe</label>
+    <input type="password" id="password" name="password" autocomplete="current-password" required>
 
     <button type="submit">Se connecter</button>
 </form>
 
-<p>Pas encore de compte ? <a href="register.php">S'inscrire</a></p>
+<p>Pas encore de compte ? <a href="register.php">Créer un compte</a></p>
 <p><a href="changer_mot_de_passe.php">Changer mon mot de passe</a></p>
 
-<?php include 'Includes/footer.php'; ?> 
+<?php include 'Includes/footer.php'; ?>

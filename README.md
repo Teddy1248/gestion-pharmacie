@@ -10,6 +10,9 @@ L'application permet :
 * la gestion des produits (ajout, modification, suppression)
 * la gestion des clients (ajout, modification, suppression)
 * une interface sécurisée avec authentification
+* un tableau de bord avec statistiques rapides
+* la gestion des ventes avec mise à jour automatique du stock
+* une interface moderne, responsive et légère
 
 Ce projet a été réalisé dans le but de pratiquer le développement web en PHP et la manipulation de bases de données MySQL.
 
@@ -45,7 +48,7 @@ Ce projet a été réalisé dans le but de pratiquer le développement web en PH
 * PHP (procédural / MVC)
 * MySQL
 * HTML5
-* CSS3
+* CSS3 natif (sans framework ni dépendance externe)
 * PDO (connexion sécurisée à la base de données)
 
 ---
@@ -169,13 +172,22 @@ Configuration requise :
 
 ---
 
+## ⚡ Optimisations incluses
+
+* aucune librairie JavaScript ou CSS externe
+* feuille de style légère et responsive
+* compression HTTP et cache navigateur via `.htaccess`
+* requêtes SQL limitées aux colonnes utiles
+* protection contre un stock négatif lors d'une vente concurrente
+
+---
+
 ## 🚀 Améliorations possibles
 
 * Gestion des ventes
 * Gestion du stock en temps réel
 * Alertes de stock faible
 * Ajout des dates d’expiration
-* Interface utilisateur améliorée
 * Passage complet en architecture MVC
 
 ---

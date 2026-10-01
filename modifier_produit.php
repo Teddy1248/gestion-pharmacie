@@ -49,7 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 include 'Includes/header.php';
 ?>
 
+<span class="eyebrow">Catalogue & stock</span>
 <h1>Modifier un produit</h1>
+<p class="page-intro">Mettez à jour les informations et le niveau de stock de ce produit.</p>
 
 <?php if (!empty($message)): ?>
     <p class="<?= htmlspecialchars($messageType) ?>">
@@ -98,6 +100,6 @@ include 'Includes/header.php';
     <button type="submit">Enregistrer les modifications</button>
 </form>
 
-<p><a href="produits.php">← Retour à la liste des produits</a></p>
+<a class="back-link" href="produits.php">← Retour aux produits</a>
 
 <?php include 'Includes/footer.php'; ?> 

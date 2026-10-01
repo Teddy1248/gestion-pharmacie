@@ -3,14 +3,18 @@ session_start();
 include 'Includes/header.php';
 ?>
 
-<h1>Bienvenue sur le site de gestion de pharmacie</h1>
-<p>Ce site permet de gérer les produits, les clients et les ventes.</p>
+<section class="hero">
+    <span class="eyebrow">Gestion de pharmacie</span>
+    <h1>Gérez votre pharmacie avec simplicité.</h1>
+    <p>Produits, stocks, clients et ventes réunis dans une interface claire, rapide et pensée pour le quotidien.</p>
+    <div class="hero-actions">
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <a class="btn btn-secondary" href="dashboard.php">Ouvrir le tableau de bord</a>
+        <?php else: ?>
+            <a class="btn btn-secondary" href="login.php">Se connecter</a>
+            <a class="btn" href="register.php">Créer un compte</a>
+        <?php endif; ?>
+    </div>
+</section>
 
-<?php if (isset($_SESSION['user_id'])): ?>
-    <a class="btn" href="dashboard.php">Aller au tableau de bord</a>
-<?php else: ?>
-    <a class="btn" href="login.php">Se connecter</a>
-    <a class="btn" href="register.php">S'inscrire</a>
-<?php endif; ?>
-
-<?php include 'Includes/footer.php'; ?> 
+<?php include 'Includes/footer.php'; ?>

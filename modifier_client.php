@@ -49,7 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 include 'Includes/header.php';
 ?>
 
+<span class="eyebrow">Fichier client</span>
 <h1>Modifier un client</h1>
+<p class="page-intro">Mettez à jour les informations enregistrées pour ce client.</p>
 
 <?php if (!empty($message)): ?>
     <p class="<?= htmlspecialchars($messageType) ?>">
@@ -95,6 +97,6 @@ include 'Includes/header.php';
     <button type="submit">Enregistrer les modifications</button>
 </form>
 
-<p><a href="clients.php">← Retour à la liste des clients</a></p>
+<a class="back-link" href="clients.php">← Retour aux clients</a>
 
 <?php include 'Includes/footer.php'; ?> 

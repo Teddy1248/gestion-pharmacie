@@ -31,7 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 include 'Includes/header.php';
 ?>
 
+<span class="eyebrow">Fichier client</span>
 <h1>Ajouter un client</h1>
+<p class="page-intro">Ajoutez les coordonnées utiles d’un nouveau client.</p>
 
 <?php if (!empty($message)): ?>
     <p class="<?= htmlspecialchars($messageType) ?>">
@@ -78,6 +80,6 @@ include 'Includes/header.php';
     <button type="submit">Ajouter le client</button>
 </form>
 
-<p><a href="clients.php">← Retour à la liste des clients</a></p>
+<a class="back-link" href="clients.php">← Retour aux clients</a>
 
 <?php include 'Includes/footer.php'; ?> 

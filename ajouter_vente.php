@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmtStock = $pdo->prepare("
                 UPDATE produits
                 SET stock = stock - ?
-                WHERE id = ?
+                WHERE id = ? AND stock >= ?
             ");
 
             foreach ($lignesVente as $ligne) {
@@ -108,8 +108,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $stmtStock->execute([
                     $ligne['quantite'],
-                    $ligne['produit_id']
+                    $ligne['produit_id'],
+                    $ligne['quantite']
                 ]);
+
+                if ($stmtStock->rowCount() !== 1) {
+                    throw new RuntimeException("Stock modifié pendant la vente.");
+                }
             }
 
             $pdo->commit();
@@ -128,7 +133,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 include 'Includes/header.php';
 ?>
 
+<span class="eyebrow">Nouvelle transaction</span>
 <h1>Enregistrer une vente</h1>
+<p class="page-intro">Sélectionnez un client si besoin, puis indiquez les quantités vendues.</p>
 
 <?php if (!empty($message)): ?>
     <p class="<?= htmlspecialchars($messageType) ?>">
@@ -196,6 +203,6 @@ include 'Includes/header.php';
     <?php endif; ?>
 </form>
 
-<p><a href="ventes.php">← Retour à la liste des ventes</a></p>
+<a class="back-link" href="ventes.php">← Retour aux ventes</a>
 
 <?php include 'Includes/footer.php'; ?> 
